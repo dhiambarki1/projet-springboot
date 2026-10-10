@@ -1,12 +1,12 @@
 package tn.esprit.dhiambarkicce11.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,4 +22,13 @@ public class Agence {
     private String ville;
     private String adresse;
     private String telephone;
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
+    private Set<Vehicule> vehicules = new HashSet<>();
+
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
+    private Set<Employe> employes = new HashSet<>();
 }

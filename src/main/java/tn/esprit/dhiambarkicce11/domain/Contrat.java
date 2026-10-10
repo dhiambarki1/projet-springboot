@@ -1,13 +1,13 @@
 package tn.esprit.dhiambarkicce11.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,4 +22,14 @@ public class Contrat {
     private LocalDateTime dateSignature;
     private BigDecimal montantTotal;
     private boolean valide;
+    @OneToOne(fetch = FetchType.LAZY)    // propriétaire : colonne id_reservation
+    @JoinColumn(name = "idReservation")
+    @ToString.Exclude
+    private Reservation reservation;
+
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
+    private List<Paiement> paiements = new ArrayList<>();
 }

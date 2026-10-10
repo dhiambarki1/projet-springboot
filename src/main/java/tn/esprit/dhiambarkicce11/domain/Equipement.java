@@ -1,10 +1,10 @@
 package tn.esprit.dhiambarkicce11.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,4 +18,8 @@ public class Equipement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idEquipement;
     private String libelle;
+    @ManyToMany(mappedBy = "equipements", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
+    private Set<Vehicule> vehicules = new HashSet<>();
 }

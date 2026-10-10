@@ -1,12 +1,12 @@
 package tn.esprit.dhiambarkicce11.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,4 +24,9 @@ public class Client {
     private String telephone;
     private String numPermis;
     private LocalDateTime dateInscription;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
+    private Set<Reservation> reservations = new HashSet<>();
+
 }

@@ -3,6 +3,7 @@ package tn.esprit.dhiambarkicce11.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Getter
 @Setter
@@ -19,4 +20,8 @@ public class Paiement {
     private LocalDateTime datePaiement;
     @Enumerated(EnumType.STRING)
     private ModePaiement modePaiement;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Contrat contrat;
 }
